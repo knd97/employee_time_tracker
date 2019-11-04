@@ -1,17 +1,20 @@
 # employee_time_tracketer
 
 # Hardware
-Three hardware devices involved: <br />
+Potrzebne są 3 urządzenia: <br />
     1. **Arduino UNO** <br />
-    2. **MFRC522 RFID Reader**\
-    3. **High frequency targ/card**
+    2. **Czytnik MFRC522 RFID**\
+    3. **Karta lub tag RFID wysokiej częstotliwości**
 
-# Specifications
-### Important:
-* Input volatge: 3.3V
-* frequency: 13.56MHz
+# Specyfikacja
+* Napięcie wejściowe modułu RFID: 3.3V
+* Częstotliwość pracy moduły RFID: 13.56MHz
 
-# Pin wiring
+# Potrzebne biblioteki
+* **SPI.h**
+* **MFRC522.h**
+
+# Podłączenie pinów
 
 | RFID  | Arduino Uno  |
 | ------------- | ------------- |
@@ -25,10 +28,10 @@ Three hardware devices involved: <br />
 | 3.3  | 3.3 |
 
 
-# Circut
+# Przykładowe podłączenie układu
 
 ![alt text](https://circuits4you.com/wp-content/uploads/2018/10/RFID-Reader-RC522-interface-with-Arduino.jpg)
 
-# Dependency
-* **SPI.h**
-* **MFRC522.h**
+
+# Memory organisation
+MIFARE1K posiada pamięć złożoną z 1024 bitów, przykładowy zrzut pamięci można znaleźć w pliku `example_output.log`. Pamieć podzielona jest na 16 sektorów (0-15), z których każdy zaiwera 4 bloki (0-3). Blok `0` w sektorze `0` jest kodem producenta, pierwsze 4 bajty to UID. Ostatni blok w każdym sektorze to blok bezpieczeństwa.
