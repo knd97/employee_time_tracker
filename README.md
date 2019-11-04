@@ -1,4 +1,4 @@
-# employee_time_tracketer
+# employee_time_tracker
 
 # Hardware
 Potrzebne są 3 urządzenia: <br />
