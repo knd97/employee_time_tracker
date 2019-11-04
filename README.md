@@ -33,5 +33,5 @@ Potrzebne są 3 urządzenia: <br />
 ![alt text](https://circuits4you.com/wp-content/uploads/2018/10/RFID-Reader-RC522-interface-with-Arduino.jpg)
 
 
-# Memory organisation
+# Organizacja pamięci
 MIFARE1K posiada pamięć złożoną z 1024 bitów, przykładowy zrzut pamięci można znaleźć w pliku `example_output.log`. Pamieć podzielona jest na 16 sektorów (0-15), z których każdy zaiwera 4 bloki (0-3). Blok `0` w sektorze `0` jest kodem producenta, pierwsze 4 bajty to UID. Ostatni blok w każdym sektorze to blok bezpieczeństwa.
