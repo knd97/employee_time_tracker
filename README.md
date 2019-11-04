@@ -12,9 +12,18 @@ Three hardware devices involved: <br />
 * frequency: 13.56MHz
 
 # Pin wiring
-RFID | SDA | SCK | MOSI | MISO | IRQ | GND | RST | 3.3v |
---- | --- | --- | --- |--- |--- |--- |--- |--- |--- |--- |---
-Arduino UNO | 10 | 13 | 11 | 12 | - | GND | 9 | 3.3 | 272 | 276 | 269
+
+| RFID  | Arduino Uno  |
+| ------------- | ------------- |
+| SDA  | 10  |
+| SCK  | 13 |
+| MOSI  | 11 |
+|  MISQ | l2 |
+|  IRQ | - |
+|  GND | GND |
+|  RST | 9 |
+| 3.3  | 3.3 |
+
 
 # Circut
 
