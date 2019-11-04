@@ -1,4 +1,4 @@
-# employee_time_tracketer
+# employee_time_tracker
 
 # Hardware
 Three hardware devices involved: <br />
