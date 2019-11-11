@@ -4,7 +4,7 @@ services:
     build: ./docker/php/
     container_name: php
     networks:
-      - backend
+      - host
     volumes:
       - ./public/:/var/www/html/
   apache:
@@ -14,8 +14,7 @@ services:
       - php
       - mysql
     networks:
-      - frontend
-      - backend
+      - host
     ports:
       - "8040:80"
     volumes:
@@ -30,14 +29,13 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - backend
+            - host
     environment:
       MYSQL_ROOT_PASSWORD: "7b8ffa9edd8dab810fd31583df374ec3"
       MYSQL_DATABASE: "wbudowane"
       MYSQL_USER: "wojdylak"
       MYSQL_PASSWORD: "password"
 networks:
-  frontend:
-  backend:
+        host:
 volumes:
     data:
