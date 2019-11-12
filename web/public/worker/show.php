@@ -25,7 +25,6 @@ $workers = $workersQuery->fetchAll();
 			      <th scope="col">Nazwisko</th>
 			      <th scope="col">Token</th>
 			      <th scope="col">Aktywny</th>
-			      <th scope="col">Edytuj</th>
 			      <th scope="col">Usun</th>
 			    </tr>
 			  </thead>
@@ -37,7 +36,6 @@ $workers = $workersQuery->fetchAll();
 							<td>'. $worker['last_name'] .'</td>
 							<td>'. $worker['token'] .'</td>
 							<td>'. $worker['is_active'] .'</td>
-							<td><a href="edit.php?id='. $worker['id'] .'">Edytuj</a></td>
 							<td><a href="delete.php?id='. $worker['id'] .'">Usun</a></td>
 						</tr>';
 				}

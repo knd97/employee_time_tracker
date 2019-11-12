@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../database.php';
 
-$logsQuery = $db->query('SELECT * FROM logs l INNER JOIN workers w ON l.id_user = w.id');
+$logsQuery = $db->query('SELECT * FROM logs l INNER JOIN workers w ON l.id_worker = w.id WHERE l.is_finished = 1');
 $logs = $logsQuery->fetchAll();
 ?>
 
@@ -19,16 +19,26 @@ $logs = $logsQuery->fetchAll();
 			    <tr>
 			      <th scope="col">Imie</th>
 			      <th scope="col">Nazwisko</th>
-			      <th scope="col">Data</th>
+			      <th scope="col">Start</th>
+			      <th scope="col">Koniec</th>
+			      <th scope="col">Godziny</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 				<?php
 				foreach ($logs as $log) {
+					$diff = abs(strtotime($log['date_end']) - strtotime($log['date_start']));
+					$years = floor($diff / (365*60*60*24));  
+					$months = floor(($diff - $years * 365*60*60*24)/(30*60*60*24));  
+					$days = floor(($diff - $years * 365*60*60*24 -$months*30*60*60*24)/ (60*60*24)); 
+					$hours = floor(($diff - $years * 365*60*60*24  - $months*30*60*60*24 - $days*60*60*24) / (60*60));  
+					$minutes = floor(($diff - $years * 365*60*60*24- $months*30*60*60*24 - $days*60*60*24 - $hours*60*60)/ 60);  
 					echo '<tr>
 							<td>'. $log['first_name'] .'</td>
 							<td>'. $log['last_name'] .'</td>
-							<td>'. $log['date'] .'</td>
+							<td>'. $log['date_start'] .'</td>
+							<td>'. $log['date_end'] .'</td>
+							<td>'. $hours . ' godzin ' . $minutes . 'minut</td>
 						</tr>';
 				}
 				?>

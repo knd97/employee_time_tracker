@@ -10,12 +10,16 @@ if (isset($_POST['first_name'])) {
 	if (isset($_POST['is_active'])) {
 		$isActive = 1;
 	}
-
+	
 	$stmt = $db->prepare('INSERT INTO workers VALUES (NULL, :firstName, :lastName, :token, :isActive)');
 	$stmt->bindValue(':firstName', $firstName, PDO::PARAM_STR);
 	$stmt->bindValue(':lastName', $lastName, PDO::PARAM_STR);
 	$stmt->bindValue(':token', $token, PDO::PARAM_STR);
 	$stmt->bindValue(':isActive', $isActive, PDO::PARAM_BOOL);
+	$stmt->execute();
+
+	$stmt = $db->prepare('UPDATE tokens SET is_active = 1 WHERE token = :token');
+	$stmt->bindValue(':token', $token, PDO::PARAM_STR);
 	$stmt->execute();
 
 	header('Location: show.php');

@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../database.php';
 
-$tokensQuery = $db->query('SELECT * FROM tokens');
+$tokensQuery = $db->query('SELECT * FROM tokens WHERE is_active = 0');
 $tokens = $tokensQuery->fetchAll();
 ?>
 
