@@ -10,7 +10,7 @@ $tokens = $tokensQuery->fetchAll();
 <?php include_once __DIR__.'/../nav.php' ?>
 
 		<div class="row mt-5 mb-4">
-			<h1>Tokeny</h1>
+			<h1>Nieaktywne tokeny</h1>
 		</div>
 
 		<div class="row">
