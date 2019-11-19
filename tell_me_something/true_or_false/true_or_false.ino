@@ -60,21 +60,21 @@ void loop() {
       //Serial.println(token_str);
       send_uid(token_str ,server);
       delay(1000);
-      /*if (client.available()) {
-        char true_or_false = client.read();
+      if (client.available()) {
+        char true_or_false[6] = client.read();
         Serial.print(true_or_false);
-          if(true_or_false == 'true')
+          /*if(true_or_false == 'true')
             {
               Serial.print("Accept");
                }
            else
             {
               Serial.print("Deny");
-            }
+            }*/
         if (client.connected())
         {
         client.stop();
-        }*/
+        }
   }
 }
 
