@@ -83,7 +83,7 @@ $workers = $workersQuery->fetchAll();
 				$days = floor(($sumTime - $years * 365*60*60*24 -$months*30*60*60*24)/ (60*60*24)); 
 				$hours = floor(($sumTime - $years * 365*60*60*24  - $months*30*60*60*24 - $days*60*60*24) / (60*60));  
 				$minutes = floor(($sumTime - $years * 365*60*60*24- $months*30*60*60*24 - $days*60*60*24 - $hours*60*60)/ 60);
-				echo '<tr> <td></td> <td></td> <td></td> <td></td> <td>'. $hours . ' godzin ' . $minutes . 'minut</td> </tr>'
+				echo '<tr> <td></td> <td></td> <td></td> <td></td> <td>'. $hours . ' godzin ' . $minutes . ' minut</td> </tr>'
 				?>
 			   </tbody>
 			</table>
