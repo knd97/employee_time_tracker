@@ -20,6 +20,6 @@ void setup() {
 void loop() {
   if (rfid.PICC_IsNewCardPresent() && rfid.PICC_ReadCardSerial())
   {
-      rfid.PICC_DumpToSerial(&(rfid.uid));
+    rfid.PICC_DumpToSerial(&(rfid.uid));
   }
 }
