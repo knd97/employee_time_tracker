@@ -61,7 +61,8 @@ void loop() {
       send_uid(token_str ,server);
       delay(1000);
       if (client.available()) {
-        char true_or_false[6] = client.read();
+        char true_or_false[6] = "truee";
+        true_or_false[6]= client.read();
         Serial.print(true_or_false);
           /*if(true_or_false == 'true')
             {
@@ -94,7 +95,7 @@ void send_uid(String token, char server[])
        client.println();
        client.println();
 
-       char true_or_false = client.read();
+      /* char true_or_false = client.read();
        Serial.print(true_or_false);
        if(true_or_false == 'true')
        {
@@ -113,6 +114,8 @@ void send_uid(String token, char server[])
    if (client.connected())
    {
       client.stop();
-   }
-   
+   }*/
+   //-------------------
+  }
+  //----------------
 }
