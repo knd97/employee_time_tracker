@@ -59,24 +59,34 @@ void loop() {
       Serial.println();
       //Serial.println(token_str);
       send_uid(token_str ,server);
-      delay(1000);
-      if (client.available()) {
-        char true_or_false[6] = "truee";
-        true_or_false[6]= client.read();
-        Serial.print(true_or_false);
-          /*if(true_or_false == 'true')
-            {
-              Serial.print("Accept");
-               }
-           else
-            {
-              Serial.print("Deny");
-            }*/
-        if (client.connected())
-        {
-        client.stop();
-        }
+      delay(2000);
   }
+  Serial.print("|--------------------------------|");
+  Serial.println("I AM HERE");
+    int len = client.available();
+    Serial.println("Dlugosc :");
+    Serial.print(len);
+    Serial.println("|--------------------------------|");
+      if (len > 0) {
+       byte buffer[10];
+        if (len > 10) len = 10;
+        
+        //char thisChar = client.read();
+        client.read(buffer, len);
+     Serial.println("|--------------www---------------|");  
+     Serial.write(buffer, len);
+     String tekst;
+     tekst.toCharArray(char(buffer), len);
+     Serial.print("|--------------ppp---------------|");  
+     Serial.println(tekst);
+    // Serial.print("|--------------ccc---------------|");  
+     //Serial.println(thisChar);
+  }
+
+   if (client.connected())
+   {
+      client.stop();
+   }
 }
 
 void send_uid(String token, char server[])
@@ -94,28 +104,10 @@ void send_uid(String token, char server[])
        client.print("Content-Length: ");
        client.println();
        client.println();
-
-      /* char true_or_false = client.read();
-       Serial.print(true_or_false);
-       if(true_or_false == 'true')
-       {
-        Serial.println("Accept");
-       }
-       else
-       {
-        Serial.println("Deny");
-       }
    }
    else
    {
       Serial.println("Something went wrong, couldn't establish connection with server");
    }
-   
-   if (client.connected())
-   {
-      client.stop();
-   }*/
-   //-------------------
-  }
-  //----------------
+
 }
