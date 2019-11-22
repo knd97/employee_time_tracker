@@ -1,13 +1,15 @@
 #include <SPI.h>
 #include <Ethernet.h>
 #include <MFRC522.h>
+#include <ArduinoHttpClient.h>
 #include <stdlib.h>
 
 constexpr uint8_t SS_PIN = 5;
 constexpr uint8_t RST_PIN = 9;
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-char server[] = "192.168.1.13";
+//ip of docker
+char server[] = "192.168.1.14";
 IPAddress ip {192, 168, 1, 33};
 IPAddress myDNS {192, 168, 1, 0};
 
@@ -16,6 +18,7 @@ MFRC522 rfid(SS_PIN, RST_PIN);
 MFRC522::MIFARE_Key key;
 
 EthernetClient client;
+HttpClient httpclient(client, server, 8040);
 
 void setup() {
   Serial.begin(9600);
@@ -23,91 +26,59 @@ void setup() {
 
   pinMode(10,OUTPUT);
   digitalWrite(10, HIGH);
+  pinMode(7, OUTPUT);
+  digitalWrite(7, LOW);
+  
   SPI.begin();
   Ethernet.begin(mac, ip, myDNS);
   delay(1000);
-  Serial.print("IP address: ");
+  Serial.print(F("IP address: "));
   Serial.println(Ethernet.localIP());
-  
   rfid.PCD_Init();
-    
+   
   Serial.println(F("Please insert your tag..."));
 }
 
 void loop() {
+
+  String rfidUID = "";
   if (rfid.PICC_IsNewCardPresent() && rfid.PICC_ReadCardSerial())
   {
-      char **token[4];
-      for(int i = 0; i < 4; i++)
-      {
-          token[i] = malloc(3 * sizeof(char));
-      }
-
       for (byte i = 0; i < rfid.uid.size; i++) 
       {
-          Serial.print(rfid.uid.uidByte[i] < 0x10 ? " 0" : " ");
-          Serial.print(rfid.uid.uidByte[i], HEX);
-          itoa(rfid.uid.uidByte[i], *token[i], 16);
+          rfidUID += String(rfid.uid.uidByte[i] < 0x10 ? " 0" : " ");
+          rfidUID += String(rfid.uid.uidByte[i], HEX);
       }
-      
-      String token_str = "";
-      for(int i = 0; i < 4; i++)
-      {
-        token_str += *token[i];
-      }
-
-      Serial.println();
-      //Serial.println(token_str);
-      send_uid(token_str ,server);
+      rfidUID.replace(" ", "");
+      send_uid(rfidUID, server);
       delay(2000);
   }
-  Serial.print("|--------------------------------|");
-  Serial.println("I AM HERE");
-    int len = client.available();
-    Serial.println("Dlugosc :");
-    Serial.print(len);
-    Serial.println("|--------------------------------|");
-      if (len > 0) {
-       byte buffer[10];
-        if (len > 10) len = 10;
-        
-        //char thisChar = client.read();
-        client.read(buffer, len);
-     Serial.println("|--------------www---------------|");  
-     Serial.write(buffer, len);
-     String tekst;
-     tekst.toCharArray(char(buffer), len);
-     Serial.print("|--------------ppp---------------|");  
-     Serial.println(tekst);
-    // Serial.print("|--------------ccc---------------|");  
-     //Serial.println(thisChar);
+  if (client.connected())
+  {
+     client.stop();
   }
-
-   if (client.connected())
-   {
-      client.stop();
-   }
 }
 
 void send_uid(String token, char server[])
 {
   Serial.println(token);
-  //8040 - due to docker-compose
-  if (client.connect(server,8040))
-  {
-       String url_base = "GET /add_log.php?token=";
-       String url_protocol = " HTTP/1.1";
-       client.println(url_base + token + url_protocol);
-       String server_ip = server;
-       client.println("Host: " + server_ip);
-       client.println("Content-Type: application/x-www-form-urlencoded");
-       client.print("Content-Length: ");
-       client.println();
-       client.println();
-   }
-   else
-   {
-      Serial.println("Something went wrong, couldn't establish connection with server");
-   }
+  String url_base = "/add_log.php?token=";
+  String url = url_base + token;
+  httpclient.beginRequest();
+  httpclient.get(url);
+  httpclient.endRequest();
 
+  int statusCode = httpclient.responseStatusCode();
+  String response = httpclient.responseBody();
+
+  Serial.print("Status code: ");
+  Serial.println(statusCode);
+  Serial.print("Response: ");
+  Serial.println(response);
+  if(response == 'true')
+  {
+    digitalWrite(7, HIGH);
+  }
+  delay(4000);
+  digitalWrite(7, LOW);
 }
