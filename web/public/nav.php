@@ -7,10 +7,10 @@
 	    <a class="nav-link" href=<?='http://' . $_ENV['HTTP_HOST'] . '/worker/show.php' ?>>Pracownicy</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" href=<?='http://' . $_ENV['HTTP_HOST'] . '/log/show.php' ?>>Logs</a>
+	    <a class="nav-link" href=<?='http://' . $_ENV['HTTP_HOST'] . '/log/show.php' ?>>Logi</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" href=<?='http://' . $_ENV['HTTP_HOST'] . '/token/show.php' ?>>Token</a>
+	    <a class="nav-link" href=<?='http://' . $_ENV['HTTP_HOST'] . '/token/show.php' ?>>Tokeny</a>
 	  </li>
 	</ul>
 </nav>

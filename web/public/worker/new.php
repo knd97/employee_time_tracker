@@ -37,24 +37,24 @@ if (isset($_POST['first_name'])) {
 		<div class="row">
 			<form method="post">
 			  <div class="form-group">
-			    <label>Imie</label>
+			    <label>Imię:</label>
 			    <input type="test" class="form-control" name="first_name">
 			  </div>
 			  <div class="form-group">
-			    <label>Nazwisko</label>
+			    <label>Nazwisko:</label>
 			    <input type="test" class="form-control" name="last_name">
 			  </div>
 			  <div class="form-group">
-			    <label>Token</label>
+			    <label>Token:</label>
 			    <input type="test" class="form-control" name="token">
 			  </div>
 
 
 			  <div class="form-group form-check">
 			    <input type="checkbox" class="form-check-input" name="is_active">
-			    <label class="form-check-label">Aktywny</label>
+			    <label class="form-check-label ml-2">Aktywny</label>
 			  </div>
-			  <button type="submit" class="btn btn-primary">Submit</button>
+			  <button type="submit" class="btn btn-primary">Dodaj</button>
 			</form>
 
 		</div>		
